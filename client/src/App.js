@@ -5,6 +5,7 @@ import Saved from "./pages/Saved";
 import Search from "./pages/Search";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
+import Header from "./components/Header";
 import "./App.css";
 
 function App() {
@@ -12,7 +13,8 @@ function App() {
     <Router>
         <div>
           <Nav/>
-          <Wrapper>
+          <Wrapper className="container-fluid">
+            <Header/>
             <Switch>
               <Route exact path="/" component={Search} />
               <Route exact path="/search" component={Search} />
