@@ -8,12 +8,12 @@ function Nav() {
         <Link className="navbar-brand" to="/search">
             React Reading List
         </Link>
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <Link class="nav-link" to="/search">Search</Link>
+            <ul className="navbar-nav">
+                <li className="nav-item">
+                    <Link className="nav-link" to="/search">Search</Link>
                 </li>
-                <li class="nav-item">
-                    <Link class="nav-link" to="/saved">Saved</Link>
+                <li className="nav-item">
+                    <Link className="nav-link" to="/saved">Saved</Link>
                 </li>
             </ul>
     </nav>
