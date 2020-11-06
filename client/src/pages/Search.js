@@ -15,7 +15,7 @@ function Search() {
 
     function handleFormSubmit(event) {
         event.preventDefault();
-        loadBooks(formObject.value); 
+        loadBooks(formObject.value);
     };
 
     function handleInputChange(event) {
@@ -26,11 +26,29 @@ function Search() {
     function loadBooks(query) {
         API.getBooks(query)
             .then(res => {
-                setBooks(res.data.items)
-                console.log(res.data.items)
+                let BooksArray = []
+                res.data.items.forEach(item => {
+                    BooksArray.push({
+                        id: item.id,
+                        title: item.volumeInfo.title,
+                        description: item.volumeInfo.description,
+                        authors: item.volumeInfo.authors,
+                        image: item.volumeInfo.imageLinks,
+                        link: item.volumeInfo.infoLink
+                    })
+                })
+                setBooks(BooksArray);
             })
             .catch(err => console.log(err));
-      };
+    };
+    
+    function handleSave() {
+        API.saveBook(books)
+            .then(res => {
+                console.log('book has been saved')
+            })
+            .catch(err => console.log(err));
+    }
 
   return (
     <div>
@@ -56,11 +74,18 @@ function Search() {
                     <div>
                         {books.map(book => (
                             <ListItem key={book.id} style={{margin: '10px'}}>
-                                <p>title: {book.volumeInfo.title}</p>
-                                <p>description: {book.volumeInfo.description}</p>
-                                <p>authors: {book.volumeInfo.authors}</p>
-                                <img className="img-fluid" alt={book.volumeInfo.title} src={book.volumeInfo.imageLinks.thumbnail} />
-                                <a href={book.volumeInfo.infoLink} target="_blank" rel="noreferrer">{book.volumeInfo.infoLink}</a>
+                                <p>title: {book.title}</p>
+                                <p>description: {book.description}</p>
+                                {book.authors ?
+                                    <p>authors: {book.authors.join(', ')}</p> :
+                                    <p>NO AUTHORS</p>
+                                }
+                                {book.image ? 
+                                    <img className="img-fluid" alt={book.title} src={book.image.thumbnail} /> :
+                                    <p>No Image Available</p>
+                                }
+                                <button><a href={book.link} target="_blank" rel="noreferrer">View</a></button>
+                                <button onClick = {handleSave} >SAVE</button>
                             </ListItem>
                         ))}
                     </div>
