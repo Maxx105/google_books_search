@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { Input, FormBtn } from "../components/SearchForm";
 import { List, ListItem } from "../components/List";
 import Results from "../components/Results";
+import Modal from "../components/Modal";
 import API from "../utils/API";
 
 
 function Search() {
     const [books, setBooks] = useState([])
     const [formObject, setFormObject] = useState({})
+    const [modalTitle, setModalTitle] = useState('')
 
     function handleFormSubmit(event) {
         event.preventDefault();
@@ -39,6 +41,7 @@ function Search() {
     };
     
     function handleSave(books) {
+        setModalTitle(books.title)
         API.saveBook(books)
             .then(res => {
                 console.log(res.data)
@@ -68,7 +71,7 @@ function Search() {
             <Results>
                 <List>
                     <div>
-                        {books.map(book => (
+                        {books.map((book, i) => (
                             <ListItem key={book._id} style={{margin: '10px'}}>
                                 <div className = "row">
                                     <div className = "col-md-6">
@@ -80,10 +83,11 @@ function Search() {
                                     </div>
                                     <div className = "col-md-6">
                                         {book.image ?
-                                            <button type="button" className="btn btn-success btn-lg" onClick = {() => handleSave({...book, image: book.image.thumbnail})}>SAVE</button> :
-                                            <button type="button" className="btn btn-success btn-lg" onClick = {() => handleSave({...book, image: null})}>SAVE</button>
+                                            <button type="button" className="btn btn-success btn-lg" onClick = {() => handleSave({...book, image: book.image.thumbnail})} data-toggle="modal" data-target="#bookSelect">SAVE</button> :
+                                            <button type="button" className="btn btn-success btn-lg" onClick = {() => handleSave({...book, image: null})} data-toggle="modal" data-target="#bookSelect">SAVE</button>
                                         }
                                         <a href={book.link} target="_blank" rel="noopener noreferrer"><button type="button" className="btn btn-primary btn-lg">VIEW</button></a>
+                                        <Modal title={modalTitle}/>
                                     </div>
                                 </div>
                                 <div className = "row">
