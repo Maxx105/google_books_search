@@ -9,10 +9,6 @@ function Search() {
     const [books, setBooks] = useState([])
     const [formObject, setFormObject] = useState({})
 
-    // useEffect(() => {
-    //     loadBooks()
-    // }, [])
-
     function handleFormSubmit(event) {
         event.preventDefault();
         loadBooks(formObject.value);
@@ -26,12 +22,12 @@ function Search() {
     function loadBooks(query) {
         API.getBooks(query)
             .then(res => {
-                let BooksArray = []
+                let BooksArray = [];
                 res.data.items.forEach(item => {
                     BooksArray.push({
-                        id: item.id,
+                        _id: item.id,
                         title: item.volumeInfo.title,
-                        description: item.volumeInfo.description,
+                        description: item.volumeInfo.description ? item.volumeInfo.description : "No Description Available",
                         authors: item.volumeInfo.authors,
                         image: item.volumeInfo.imageLinks,
                         link: item.volumeInfo.infoLink
@@ -42,12 +38,13 @@ function Search() {
             .catch(err => console.log(err));
     };
     
-    function handleSave() {
+    function handleSave(books) {
+        console.log(books)
         API.saveBook(books)
             .then(res => {
-                console.log('book has been saved')
+                console.log(res.data)
             })
-            .catch(err => console.log(err));
+            .catch(err => console.log(err.response));
     }
 
   return (
@@ -73,7 +70,7 @@ function Search() {
                 <List>
                     <div>
                         {books.map(book => (
-                            <ListItem key={book.id} style={{margin: '10px'}}>
+                            <ListItem key={book._id} style={{margin: '10px'}}>
                                 <p>title: {book.title}</p>
                                 <p>description: {book.description}</p>
                                 {book.authors ?
@@ -84,8 +81,11 @@ function Search() {
                                     <img className="img-fluid" alt={book.title} src={book.image.thumbnail} /> :
                                     <p>No Image Available</p>
                                 }
-                                <button><a href={book.link} target="_blank" rel="noreferrer">View</a></button>
-                                <button onClick = {handleSave} >SAVE</button>
+                                <button><a href={book.link} target="_blank" rel="noopener noreferrer">View</a></button>
+                                {book.image ?
+                                    <button onClick = {() => handleSave({...book, image: book.image.thumbnail})}>SAVE</button> :
+                                    <button onClick = {() => handleSave({...book, image: null})}>SAVE</button>
+                                }
                             </ListItem>
                         ))}
                     </div>
