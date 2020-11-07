@@ -39,7 +39,6 @@ function Search() {
     };
     
     function handleSave(books) {
-        console.log(books)
         API.saveBook(books)
             .then(res => {
                 console.log(res.data)
@@ -71,21 +70,34 @@ function Search() {
                     <div>
                         {books.map(book => (
                             <ListItem key={book._id} style={{margin: '10px'}}>
-                                <p>title: {book.title}</p>
-                                <p>description: {book.description}</p>
-                                {book.authors ?
-                                    <p>authors: {book.authors.join(', ')}</p> :
-                                    <p>NO AUTHORS</p>
-                                }
-                                {book.image ? 
-                                    <img className="img-fluid" alt={book.title} src={book.image.thumbnail} /> :
-                                    <p>No Image Available</p>
-                                }
-                                <button><a href={book.link} target="_blank" rel="noopener noreferrer">View</a></button>
-                                {book.image ?
-                                    <button onClick = {() => handleSave({...book, image: book.image.thumbnail})}>SAVE</button> :
-                                    <button onClick = {() => handleSave({...book, image: null})}>SAVE</button>
-                                }
+                                <div className = "row">
+                                    <div className = "col-md-6">
+                                        <h5>{book.title}</h5>
+                                        {book.authors ?
+                                            <p>Written by {book.authors.join(', ')}</p> :
+                                            <p>No Authors</p>
+                                        }
+                                    </div>
+                                    <div className = "col-md-6">
+                                        {book.image ?
+                                            <button type="button" className="btn btn-success btn-lg" onClick = {() => handleSave({...book, image: book.image.thumbnail})}>SAVE</button> :
+                                            <button type="button" className="btn btn-success btn-lg" onClick = {() => handleSave({...book, image: null})}>SAVE</button>
+                                        }
+                                        <a href={book.link} target="_blank" rel="noopener noreferrer"><button type="button" className="btn btn-primary btn-lg">VIEW</button></a>
+                                    </div>
+                                </div>
+                                <div className = "row">
+                                    <div className = "col-md-2">
+                                        {book.image ? 
+                                            <img className="img-thumbnail" alt={book.title} src={book.image.thumbnail}/> :
+                                            <p>No Image Available</p>
+                                        }
+                                    </div>
+                                    <div className = "col-md-10">
+                                        <p>{book.description}</p>
+                                    </div>
+                                </div>    
+                                
                             </ListItem>
                         ))}
                     </div>
