@@ -1,7 +1,7 @@
 # Google Books Search
 UCI Boot Camp Homework 21 - Google Books Search
 
-Click [here]() to open deployed Github pages application.
+Click [here](https://mern-books-maxx.herokuapp.com/) to open deployed Github pages application.
 
 ![deployed application](client/public/deployed_app.JPG)
 
@@ -22,7 +22,7 @@ Click [here]() to open deployed Github pages application.
 * The React side uses the React Router for routing between pages as well as Axios for API manipulation.
 
 ## Usage 
-If using from the Github pages deployed application, just go to the deployed application's [link](). There are essentially only two pages to this application: the Search page and the Saved page. First, go to the Search page and enter a book keyword in the text box (name of book, author, etc.) and then click submit. The top 10 results will appear, each with a view and save button. The View button brings you to the Google Books page for that back and the Save button saves it to your collection of saved books on the Saved page. The Saved page shows all books which were saved, and allows you to view the book OR delete it using the view and delete buttons, respectively.
+If using from the Github pages deployed application, just go to the deployed application's [link](https://mern-books-maxx.herokuapp.com/). There are essentially only two pages to this application: the Search page and the Saved page. First, go to the Search page and enter a book keyword in the text box (name of book, author, etc.) and then click submit. The top 10 results will appear, each with a view and save button. The View button brings you to the Google Books page for that back and the Save button saves it to your collection of saved books on the Saved page. The Saved page shows all books which were saved, and allows you to view the book OR delete it using the view and delete buttons, respectively.
 
 ## License 
  ISC
