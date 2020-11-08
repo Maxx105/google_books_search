@@ -9,7 +9,6 @@ function Saved() {
   useEffect(() => {
     API.getSavedBooks()
       .then(res => {
-        console.log(res.data)
         setSavedBooks(res.data)
       })
       .catch(err => console.log(err));

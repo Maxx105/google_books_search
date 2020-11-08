@@ -58,7 +58,7 @@ function Search() {
                 <div className="input-group mb-3">
                     <Input 
                         type="text" 
-                        placeholder="Enter Book Name" 
+                        placeholder="Enter book keywords" 
                         onChange = {handleInputChange} >
                     </Input>
                     <FormBtn
